@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_aal_helpdesk_supervisor,access.aal.helpdesk.supervisor,analytic.model_account_analytic_line,skyline_helpdesk_enhancment.group_helpdesk_team_supervisor,1,1,1,0
+access_aal_helpdesk_leader,access.aal.helpdesk.leader,analytic.model_account_analytic_line,skyline_helpdesk_enhancment.group_helpdesk_team_leader,1,1,1,0
+access_aal_helpdesk_manager,access.aal.helpdesk.manager,analytic.model_account_analytic_line,skyline_helpdesk_enhancment.group_helpdesk_team_manager,1,1,1,0

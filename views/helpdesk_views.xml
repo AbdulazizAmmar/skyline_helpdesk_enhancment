@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_helpdesk_ticket_form_inherit_skyline" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit.skyline</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="inside">
+                <group string="Automation" groups="skyline_helpdesk_enhancment.group_helpdesk_team_supervisor,skyline_helpdesk_enhancment.group_helpdesk_team_leader,skyline_helpdesk_enhancment.group_helpdesk_team_manager">
+                    <field name="stage_last_changed_at" readonly="1"/>
+                    <field name="escalation_last_notified_at" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_helpdesk_timesheet_line_tree" model="ir.ui.view">
+        <field name="name">account.analytic.line.helpdesk.timesheet.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="arch" type="xml">
+            <tree string="Helpdesk Timesheets" create="false">
+                <field name="date"/>
+                <field name="user_id"/>
+                <field name="helpdesk_team_id"/>
+                <field name="helpdesk_ticket_id"/>
+                <field name="helpdesk_stage_id"/>
+                <field name="unit_amount" string="Timesheet Hours"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_timesheet_line_search" model="ir.ui.view">
+        <field name="name">account.analytic.line.helpdesk.timesheet.search</field>
+        <field name="model">account.analytic.line</field>
+        <field name="arch" type="xml">
+            <search string="Helpdesk Timesheet Analysis">
+                <field name="helpdesk_team_id"/>
+                <field name="helpdesk_ticket_id" string="Task"/>
+                <field name="helpdesk_stage_id"/>
+                <field name="user_id" string="Employee"/>
+                <filter name="group_helpdesk_team" string="Helpdesk Team" context="{'group_by': 'helpdesk_team_id'}"/>
+                <filter name="group_task" string="Task" context="{'group_by': 'helpdesk_ticket_id'}"/>
+                <filter name="group_stage" string="Stage" context="{'group_by': 'helpdesk_stage_id'}"/>
+                <filter name="group_employee" string="Employee" context="{'group_by': 'user_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_timesheet_line_pivot" model="ir.ui.view">
+        <field name="name">account.analytic.line.helpdesk.timesheet.pivot</field>
+        <field name="model">account.analytic.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Helpdesk Timesheet Analysis">
+                <field name="helpdesk_team_id" type="row"/>
+                <field name="helpdesk_ticket_id" type="row" string="Task"/>
+                <field name="helpdesk_stage_id" type="col"/>
+                <field name="user_id" type="col" string="Employee"/>
+                <field name="unit_amount" type="measure" string="Timesheet Hours"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_timesheet_line_graph" model="ir.ui.view">
+        <field name="name">account.analytic.line.helpdesk.timesheet.graph</field>
+        <field name="model">account.analytic.line</field>
+        <field name="arch" type="xml">
+            <graph string="Helpdesk Timesheet Analysis" type="bar">
+                <field name="helpdesk_team_id"/>
+                <field name="helpdesk_ticket_id" string="Task"/>
+                <field name="helpdesk_stage_id"/>
+                <field name="user_id" string="Employee"/>
+                <field name="unit_amount" type="measure" string="Timesheet Hours"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_helpdesk_timesheet_analysis" model="ir.actions.act_window">
+        <field name="name">Helpdesk Timesheet Analysis</field>
+        <field name="res_model">account.analytic.line</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field name="domain">[("helpdesk_ticket_id", "!=", False)]</field>
+        <field name="search_view_id" ref="skyline_helpdesk_enhancment.view_helpdesk_timesheet_line_search"/>
+        <field name="context">{'search_default_group_helpdesk_team': 1}</field>
+    </record>
+
+    <menuitem
+        id="menu_helpdesk_timesheet_analysis"
+        name="Timesheet Analysis"
+        parent="helpdesk.helpdesk_menu_reporting"
+        action="skyline_helpdesk_enhancment.action_helpdesk_timesheet_analysis"
+        sequence="40"
+        groups="helpdesk.group_helpdesk_user"
+    />
+</odoo>
