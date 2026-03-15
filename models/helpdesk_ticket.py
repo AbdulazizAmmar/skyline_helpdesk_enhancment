@@ -114,9 +114,6 @@ class HelpdeskTicket(models.Model):
         for ticket, vals in zip(tickets, vals_list):
             if ticket._is_external_ticket_creation(vals):
                 continue
-            # Ticket creation itself should still succeed even when actor is not allowed.
-            if not ticket._can_current_user_start_ticket_timesheet():
-                continue
             ticket._create_initial_ticket_timesheet()
 
         return tickets
