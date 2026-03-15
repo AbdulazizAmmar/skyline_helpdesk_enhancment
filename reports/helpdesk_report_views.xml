@@ -70,11 +70,19 @@
     </record>
 
     <menuitem
+        id="menu_helpdesk_reporting"
+        name="Reporting"
+        parent="helpdesk.menu_helpdesk_root"
+        sequence="40"
+        groups="helpdesk.group_helpdesk_user"
+    />
+
+    <menuitem
         id="menu_helpdesk_timesheet_analysis"
         name="Timesheet Analysis"
-        parent="helpdesk.helpdesk_menu_reporting"
-        action="skyline_helpdesk_enhancment.action_helpdesk_timesheet_analysis"
-        sequence="40"
+        parent="menu_helpdesk_reporting"
+        action="action_helpdesk_timesheet_analysis"
+        sequence="10"
         groups="helpdesk.group_helpdesk_user"
     />
 </odoo>
