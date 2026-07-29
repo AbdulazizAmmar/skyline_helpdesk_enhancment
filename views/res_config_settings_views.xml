@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_ftth" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.ftth</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="helpdesk.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='helpdesk']" position="inside">
+                <block title="FTTH Support &amp; Configuration" id="helpdesk_ftth_setting_container">
+                    <setting help="Configure FTTH service packages and link them with products.">
+                        <field name="module_skyline_helpdesk_enhancment" invisible="1"/>
+                        <div class="content-group mt16">
+                            <button name="%(skyline_helpdesk_enhancment.ftth_package_action)d" icon="oi-arrow-right" type="action" string="Manage FTTH Packages" class="btn-link"/>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

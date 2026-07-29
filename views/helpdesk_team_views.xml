@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_team_view_form_inherit_ftth" model="ir.ui.view">
+        <field name="name">helpdesk.team.form.inherit.ftth</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-info" role="alert" invisible="not is_ftth_team">
+                    <strong>FTTH Support Team:</strong> This team is configured for FTTH support &amp; commercial tickets. Customer domain filtering and FTTH technical fields are active.
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <group class="mt-3">
+                    <field name="is_ftth_team" widget="boolean_toggle" string="FTTH Configuration Enabled"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

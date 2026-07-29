@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- FTTH Package List View -->
+    <record id="ftth_package_view_tree" model="ir.ui.view">
+        <field name="name">ftth.package.view.list</field>
+        <field name="model">ftth.package</field>
+        <field name="arch" type="xml">
+            <list string="FTTH Packages">
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FTTH Package Form View -->
+    <record id="ftth_package_view_form" model="ir.ui.view">
+        <field name="name">ftth.package.view.form</field>
+        <field name="model">ftth.package</field>
+        <field name="arch" type="xml">
+            <form string="FTTH Package">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Package Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Fiber 100Mbps Ultra"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="product_id" options="{'no_create': True}"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Additional details or terms for this FTTH package..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- FTTH Package Action -->
+    <record id="ftth_package_action" model="ir.actions.act_window">
+        <field name="name">FTTH Packages</field>
+        <field name="res_model">ftth.package</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first FTTH Package!
+            </p>
+            <p>
+                Configure packages and link them with your service products.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item under Helpdesk Configuration -->
+    <menuitem id="menu_ftth_package_config"
+              name="FTTH Packages"
+              action="ftth_package_action"
+              parent="helpdesk.helpdesk_menu_config"
+              sequence="25"/>
+</odoo>

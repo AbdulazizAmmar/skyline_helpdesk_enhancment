@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Partner Form View -->
+    <record id="view_partner_form_inherit_ftth" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.ftth</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Add is_ftth_customer checkbox under partner title/header flags -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="is_ftth_customer" widget="boolean_toggle"/>
+            </xpath>
+
+            <!-- Add FTTH Details Notebook Page -->
+            <xpath expr="//notebook" position="inside">
+                <page string="FTTH Details" name="ftth_details" invisible="not is_ftth_customer">
+                    <group>
+                        <group string="Subscription &amp; Service">
+                            <field name="ftth_package_id" options="{'no_create': True}"/>
+                            <field name="ftth_username"/>
+                            <field name="ftth_activation_code"/>
+                        </group>
+                        <group string="Technical &amp; Infrastructure">
+                            <field name="ftth_serial_number"/>
+                            <field name="ftth_zone_id" options="{'no_create': True}"/>
+                            <field name="ftth_fat"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Partner Search View to add FTTH filter -->
+    <record id="view_res_partner_filter_inherit_ftth" model="ir.ui.view">
+        <field name="name">res.partner.select.inherit.ftth</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='type_person']" position="before">
+                <filter string="FTTH Customers" name="ftth_customers" domain="[('is_ftth_customer', '=', True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit_ftth" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit.ftth</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add is_ftth_team hidden field -->
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="is_ftth_team" invisible="1"/>
+            </xpath>
+
+            <!-- Apply dynamic domain on partner_id field for FTTH teams -->
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="domain">['|', ('team_id.is_ftth_team', '=', False), ('is_ftth_customer', '=', True)]</attribute>
+            </xpath>
+
+            <!-- Add FTTH Details notebook page -->
+            <xpath expr="//notebook" position="inside">
+                <page string="FTTH Details" name="ftth_ticket_details" invisible="not is_ftth_team">
+                    <group>
+                        <group string="Subscription Information">
+                            <field name="ftth_package_id" options="{'no_create': True}"/>
+                            <field name="ftth_username"/>
+                            <field name="ftth_activation_code"/>
+                        </group>
+                        <group string="Technical Details">
+                            <field name="ftth_serial_number"/>
+                            <field name="ftth_zone_id" options="{'no_create': True}"/>
+                            <field name="ftth_fat"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
